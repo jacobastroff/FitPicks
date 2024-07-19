@@ -12,9 +12,11 @@ body {
 }
 .nav-bar,
 .left-nav-side {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
   align-items: center;
+  column-gap: 2.4rem;
+  justify-content: center;
 }
 .nav-bar {
   padding: 2rem 3.6rem;
@@ -24,6 +26,7 @@ body {
 }
 .left-nav-side {
   gap: 3.6rem;
+  margin-right: 3.6rem;
 }
 .logo {
   font-size: 3.6rem;
@@ -40,14 +43,52 @@ body {
 .first-option {
   pointer-events: none;
 }
-.options {
+.options,
+.search-input {
   border-radius: 10px;
   outline: none;
   font-family: "Exo", sans-serif;
+
+  border: none;
+}
+.options {
+  border-radius: 10px;
+  outline: none;
   padding: 1rem;
   border: none;
 }
 .search-input {
   font-size: 1.6rem;
-  padding: 2rem 4rem;
+  padding: 2rem 2rem;
+  width: 100%;
+  transition: all 0.3s;
+  /* background-color: #0c9f6e; */
+}
+.search-input:hover {
+  transform: translateY(-5px);
+}
+.main {
+  display: flex;
+  margin: 0 auto;
+  width: 75%;
+  justify-content: center;
+  gap: 5rem;
+}
+.workout-list,
+.workout-details {
+  width: 35%;
+  height: 70vh;
+  background-color: #099164;
+  border-radius: 3rem;
+  padding: 3rem;
+  overflow: scroll;
+}
+.workout-list {
+  display: flex;
+  justify-content: center;
+}
+.loading,
+.error {
+  font-size: 1.6rem;
+  color: #fff;
 }
