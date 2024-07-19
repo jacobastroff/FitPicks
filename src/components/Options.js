@@ -1,3 +1,4 @@
+import { snakeCaseToProperString } from "../constants";
 export function Options({ callback, optionsArray, title, stateVar }) {
   //   console.log(callback, optionsArray, title, stateVar);
   return (
@@ -12,8 +13,7 @@ export function Options({ callback, optionsArray, title, stateVar }) {
         {optionsArray.map((option, i) => {
           return (
             <option key={i} value={`${option}`}>
-              {option[0].toUpperCase() +
-                option.slice(1).toLowerCase().replaceAll("_", " ")}
+              {snakeCaseToProperString(option)}
             </option>
           );
         })}

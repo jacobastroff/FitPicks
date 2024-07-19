@@ -6,7 +6,13 @@ import { Search } from "./components/Search";
 import { Main } from "./components/Main";
 import { WorkoutList } from "./components/WorkoutList";
 import { WorkoutDetails } from "./components/WorkoutDetails";
-const API_KEY = "RXXBjk0enqz6wI+hIibTPA==pRWGKdIWKIgkSfvA";
+import {
+  API_KEY,
+  allExerciseTypes,
+  allMuscleGroups,
+  images,
+  allDifficulties,
+} from "./constants";
 
 const initialState = {
   muscleGroup: "",
@@ -15,37 +21,14 @@ const initialState = {
   exerciseType: "",
   isLoading: false,
   isError: false,
+  workouts: null,
+  selectedWorkout: null,
 };
-const allExerciseTypes = [
-  "cardio",
-  "olympic_weightlifting",
-  "plyometrics",
-  "powerlifting",
-  "strength",
-  "stretching",
-  "strongman",
-];
-const allMuscleGroups = [
-  "abdominals",
-  "abductors",
-  "adductors",
-  "biceps",
-  "calves",
-  "chest",
-  "forearms",
-  "glutes",
-  "hamstrings",
-  "lats",
-  "lower_back",
-  "middle_back",
-  "neck",
-  "quadriceps",
-  "traps",
-  "triceps",
-];
-const allDifficulties = ["beginner", "intermediate", "expert"];
+
 function reducer(state, action) {
   switch (action.type) {
+    case "setWorkouts":
+      return { ...state, workouts: action.payload };
     case "setError":
       return { ...state, isError: action.payload };
     case "setLoading":
@@ -70,14 +53,26 @@ function reducer(state, action) {
         ...state,
         exerciseType: action.payload,
       };
+    case "setSelectedWorkout":
+      return { ...state, selectedWorkout: action.payloao };
     default:
       console.error("Action not recognized");
   }
 }
 
 function App() {
+  console.log(images.get("cardio"));
+
   const [
-    { muscleGroup, query, difficulty, exerciseType, isLoading, isError },
+    {
+      muscleGroup,
+      query,
+      difficulty,
+      exerciseType,
+      isLoading,
+      isError,
+      workouts,
+    },
     dispatch,
   ] = useReducer(reducer, initialState);
   const selectedValue = useRef({
@@ -140,12 +135,14 @@ function App() {
           const res = await fetch(linkAPI, settings);
           if (!res.ok) throw new Error("Bad Request. Try again...");
           const data = await res.json();
-          dispatch({ type: "setLoading", payload: false });
 
+          dispatch({ type: "setLoading", payload: false });
+          dispatch({ type: "setWorkouts", payload: data });
+          console.log(data);
           if (!data.length) throw new Error("No results found");
           //   Render List
         } catch (err) {
-          console.log(err);
+          //   console.log(err);
           if (!err.message.includes("signal")) {
             //React bug causes signal abort to cause error
             console.error(err.message);
@@ -220,7 +217,12 @@ function App() {
         />
       </NavBar>
       <Main>
-        <WorkoutList isLoading={isLoading} isError={isError} />
+        <WorkoutList
+          workouts={workouts}
+          isLoading={isLoading}
+          isError={isError}
+          images={images}
+        />
         <WorkoutDetails />
       </Main>
     </>

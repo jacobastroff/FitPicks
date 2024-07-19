@@ -80,15 +80,66 @@ body {
   height: 70vh;
   background-color: #099164;
   border-radius: 3rem;
-  padding: 3rem;
+  /* padding: 2rem; */
   overflow: scroll;
 }
 .workout-list {
-  display: flex;
-  justify-content: center;
 }
 .loading,
 .error {
   font-size: 1.6rem;
   color: #fff;
+  margin: 3rem;
+  text-align: center;
+}
+.list-header {
+  text-align: right;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.6rem;
+  margin-bottom: 2.4rem;
+  margin: 2rem;
+}
+.workout-list-img {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+}
+.workout {
+  padding: 1.4rem;
+  display: grid;
+  grid-template-columns: 5rem auto;
+  gap: 2rem;
+  align-items: center;
+
+  transition: all 0.3s;
+  /* width: 100%; */
+}
+.workout-dark {
+  background-color: #0b825a;
+}
+
+.workout:hover {
+  cursor: pointer;
+  background-color: #0b6e4d;
+}
+.workout-list-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.workout-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.workout-heading {
+  font-size: 1.6rem;
+  color: #fff;
+}
+.workout-detail {
+  /* font-size: 1.2rem; */
+  color: #fff;
+  font-weight: bold;
 }
