@@ -241,6 +241,7 @@ function App() {
           <Options
             stateVar={difficulty}
             optionsArray={allDifficulties}
+            className="last-option"
             callback={(e) => {
               dispatch({ type: "setDifficulty", payload: e.target.value });
 

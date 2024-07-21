@@ -249,3 +249,77 @@ body {
 .legend-name {
   font-weight: initial;
 }
+
+@media only screen and (max-width: 69em) {
+  html {
+    font-size: 50%;
+  }
+  .main {
+    flex-direction: column;
+    align-items: center;
+  }
+  .workout-list,
+  .workout-details {
+    width: 75%;
+  }
+  .logo {
+    /* color: red; */
+    grid-row: 1 / span 2;
+  }
+  .nav-bar {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 2rem;
+  }
+}
+
+@media only screen and (max-width: 50em) {
+  html {
+    font-size: 40%;
+  }
+  .nav-bar {
+    grid-template-columns: 1fr;
+  }
+  .logo {
+    text-align: center;
+  }
+  .left-nav-side {
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    justify-items: center;
+  }
+  .options {
+    /* font-size: 1.4rem; */
+    padding: 0.5rem;
+  }
+  .options-title {
+    font-size: 2rem;
+  }
+  .last-option {
+    grid-column: 1 / span 2;
+  }
+}
+@media only screen and (max-width: 28em) {
+  /* html {
+    font-size: 35%;
+  } */
+
+  .left-nav-side {
+    grid-template-columns: 1fr;
+    justify-content: center;
+    justify-items: center;
+    margin-right: 0;
+  }
+  .last-option {
+    grid-column: 1;
+  }
+  .search-input {
+    /* width: 100%; */
+    display: block;
+    justify-self: stretch;
+  }
+}
+@media only screen and (max-width: 28em) {
+  html {
+    font-size: 27.5%;
+  }
+}

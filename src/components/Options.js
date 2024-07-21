@@ -1,8 +1,14 @@
 import { snakeCaseToProperString } from "../constants";
-export function Options({ callback, optionsArray, title, stateVar }) {
+export function Options({
+  callback,
+  optionsArray,
+  title,
+  stateVar,
+  className,
+}) {
   //   console.log(callback, optionsArray, title, stateVar);
   return (
-    <div>
+    <div className={className}>
       <span className="options-title">{title}</span>
       <select
         className="options"
