@@ -16,6 +16,7 @@ export function WorkoutDetails({ selectedWorkout, dispatch }) {
               lightOrDark={i % 2 == 0 ? "workout-light" : "workout-dark"}
               workoutData={workout}
               dispatch={dispatch}
+              key={i}
             />
           ))}
         </>
@@ -27,6 +28,7 @@ export function WorkoutDetails({ selectedWorkout, dispatch }) {
           dispatch={dispatch}
           isSaved={true}
           selectedWorkout={selectedWorkout}
+          key={selectedWorkout}
         />
       )}
     </div>
