@@ -2,10 +2,7 @@ import { Workout } from "./Workout";
 import { SavedWorkoutsHeader } from "./WorkoutHeader";
 import { WorkoutDetail } from "./WorkoutDetail";
 import { useState } from "react";
-export function WorkoutDetails({ selectedWorkout, dispatch }) {
-  const [savedWorkouts, setSavedWorkouts] = useState(
-    JSON.parse(localStorage.getItem("savedWorkouts"))
-  );
+export function WorkoutDetails({ selectedWorkout, dispatch, savedWorkouts }) {
   return (
     <div className="workout-details">
       {!selectedWorkout && (
@@ -24,11 +21,9 @@ export function WorkoutDetails({ selectedWorkout, dispatch }) {
       {selectedWorkout && (
         <WorkoutDetail
           savedWorkouts={savedWorkouts}
-          onSaveWorkout={setSavedWorkouts}
           dispatch={dispatch}
-          isSaved={true}
           selectedWorkout={selectedWorkout}
-          key={selectedWorkout}
+          key={selectedWorkout.name}
         />
       )}
     </div>

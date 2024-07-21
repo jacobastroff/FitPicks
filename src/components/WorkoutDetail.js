@@ -1,22 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { images, snakeCaseToProperString } from "../constants";
 import { Button } from "./Button";
 import { WorkoutFeatureText } from "./WorkoutFeatureText";
 const isObjectEqual = function (objectA, objectB) {
   return JSON.stringify(objectA) === JSON.stringify(objectB);
 };
-export function WorkoutDetail({
-  selectedWorkout,
-  dispatch,
-  savedWorkouts,
-  onSaveWorkout,
-}) {
+export function WorkoutDetail({ selectedWorkout, dispatch, savedWorkouts }) {
   const [isSaved, setIsSaved] = useState(
     savedWorkouts.some((savedWorkout) =>
       isObjectEqual(savedWorkout, selectedWorkout)
     )
   );
-  localStorage.setItem("savedWorkouts", JSON.stringify(savedWorkouts));
 
   return (
     <div className="workout-content">
@@ -39,7 +33,10 @@ export function WorkoutDetail({
                 isObjectEqual(savedWorkout, selectedWorkout)
               )
             ) {
-              onSaveWorkout([...savedWorkouts, selectedWorkout]);
+              dispatch({
+                type: "setSavedWorkouts",
+                payload: [...savedWorkouts, selectedWorkout],
+              });
               setIsSaved(true);
             }
           }}
@@ -50,11 +47,12 @@ export function WorkoutDetail({
           <Button
             callback={() => {
               console.log("Hello");
-              onSaveWorkout(
-                savedWorkouts.filter(
+              dispatch({
+                type: "setSavedWorkouts",
+                payload: savedWorkouts.filter(
                   (workout) => !isObjectEqual(workout, selectedWorkout)
-                )
-              );
+                ),
+              });
               console.log(savedWorkouts);
               dispatch({ type: "setSelectedWorkout", payload: null });
               setIsSaved(false);

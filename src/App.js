@@ -24,12 +24,15 @@ const initialState = {
   isError: false,
   workouts: null,
   selectedWorkout: null,
+  savedWorkouts: JSON.parse(localStorage.getItem("savedWorkouts")),
 };
 
 function reducer(state, action) {
   switch (action.type) {
     case "setWorkouts":
       return { ...state, workouts: action.payload };
+    case "setSavedWorkouts":
+      return { ...state, savedWorkouts: action.payload };
     case "setError":
       return { ...state, isError: action.payload };
     case "setListLoading":
@@ -81,6 +84,7 @@ function App() {
       isError,
       workouts,
       selectedWorkout,
+      savedWorkouts,
     },
     dispatch,
   ] = useReducer(reducer, initialState);
@@ -89,7 +93,13 @@ function App() {
     query: "",
     value: "",
   });
-
+  useEffect(
+    function () {
+      localStorage.setItem("savedWorkouts", JSON.stringify(savedWorkouts));
+      console.log("DONE");
+    },
+    [savedWorkouts]
+  );
   useEffect(
     function () {
       const controller = new AbortController();
@@ -276,7 +286,11 @@ function App() {
           images={images}
           dispatch={dispatch}
         />
-        <WorkoutDetails selectedWorkout={selectedWorkout} dispatch={dispatch} />
+        <WorkoutDetails
+          savedWorkouts={savedWorkouts}
+          selectedWorkout={selectedWorkout}
+          dispatch={dispatch}
+        />
       </Main>
     </>
   );
