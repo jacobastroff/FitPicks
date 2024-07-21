@@ -23,7 +23,7 @@ const initialState = {
   isError: false,
   workouts: null,
   selectedWorkout: null,
-  savedWorkouts: JSON.parse(localStorage.getItem("savedWorkouts")),
+  savedWorkouts: JSON.parse(localStorage.getItem("savedWorkouts")) || [],
 };
 
 function reducer(state, action) {
