@@ -134,7 +134,8 @@ body {
   flex-direction: column;
   gap: 0.8rem;
 }
-.workout-line {
+.workout-line,
+.buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -160,16 +161,28 @@ body {
   border-radius: 10px;
 
   transition: all 0.3s;
-  background-color: #0b6e4d;
 
   color: #fff;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
-.button:hover {
+.delete-button {
+  background-color: #ea0202;
+}
+.delete-button:hover {
+  background-color: #c30202;
+}
+.non-delete-button,
+.non-delete-element {
+  background-color: #0b6e4d;
+}
+.non-delete-button:hover {
   box-shadow: inset 0 0 0 1px #0b6e4d;
-  cursor: pointer;
   box-shadow: inset 0 0 0 1px #0b6e4d;
   background: none;
+}
+.non-delete-button:hover,
+.delete-button:hover {
+  cursor: pointer;
 }
 .workout-details-heading {
   display: flex;

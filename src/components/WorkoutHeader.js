@@ -1,6 +1,6 @@
 import { WeightEmoji } from "./WeightEmoji";
 
-export function WorkoutHeader() {
+export function SavedWorkoutsHeader() {
   return (
     <div className="workout-details-heading">
       <WeightEmoji className={"weight-emoji-heading"} />

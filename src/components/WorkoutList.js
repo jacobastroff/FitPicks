@@ -38,7 +38,7 @@ export function WorkoutList({
   );
 }
 function IconLegend() {
-  console.log([...images]);
+  // console.log([...images]);
   return (
     <div>
       <h3 className="legend-title">Legend</h3>

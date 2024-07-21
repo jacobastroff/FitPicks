@@ -6,7 +6,10 @@ export function Workout({ lightOrDark, workoutData, dispatch }) {
   return (
     <div
       onClick={() => {
-        dispatch({ type: "setSelectedWorkout", payload: workoutData });
+        dispatch({
+          type: "setSelectedWorkout",
+          payload: { ...workoutData },
+        });
       }}
       className={`workout ${lightOrDark}`}
     >
