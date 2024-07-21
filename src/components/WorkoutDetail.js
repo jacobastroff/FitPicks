@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { images, snakeCaseToProperString } from "../constants";
+import { useState } from "react";
+import { snakeCaseToProperString } from "../constants";
 import { Button } from "./Button";
 import { WorkoutFeatureText } from "./WorkoutFeatureText";
 const isObjectEqual = function (objectA, objectB) {
