@@ -6,7 +6,7 @@ import strengthTrainingImage from "./images/strength_training.jpg";
 import stretchingImage from "./images/stretching.jpg";
 import strongmanImage from "./images/strongman_training.jpg";
 
-const API_KEY = "RXXBjk0enqz6wI+hIibTPA==pRWGKdIWKIgkSfvA";
+const API_KEY = "";
 
 const allExerciseTypes = [
   "cardio",
