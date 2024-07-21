@@ -88,6 +88,10 @@ body {
 .loading,
 .error {
   font-size: 1.6rem;
+}
+.loading,
+.error,
+.saved-workouts-title {
   color: #fff;
   margin: 3rem;
   text-align: center;
@@ -142,4 +146,17 @@ body {
   /* font-size: 1.2rem; */
   color: #fff;
   font-weight: bold;
+}
+.workout-details-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0b825a;
+}
+.saved-workouts-title {
+  font-size: 2rem;
+}
+.weight-emoji {
+  height: 2rem;
+  color: #fff;
 }

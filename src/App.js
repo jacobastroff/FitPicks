@@ -19,7 +19,8 @@ const initialState = {
   query: "",
   difficulty: "",
   exerciseType: "",
-  isLoading: false,
+  isListLoading: false,
+  isDetailsLoading: false,
   isError: false,
   workouts: null,
   selectedWorkout: null,
@@ -31,8 +32,11 @@ function reducer(state, action) {
       return { ...state, workouts: action.payload };
     case "setError":
       return { ...state, isError: action.payload };
-    case "setLoading":
-      return { ...state, isLoading: action.payload };
+    case "setListLoading":
+      return { ...state, isListLoading: action.payload };
+    case "setDetailsLoading":
+      return { ...state, isDetailsLoading: action.payload };
+
     case "setMuscleGroup":
       return {
         ...state,
@@ -61,7 +65,7 @@ function reducer(state, action) {
 }
 
 function App() {
-  console.log(images.get("cardio"));
+  //   console.log(images.get("cardio"));
 
   const [
     {
@@ -69,7 +73,7 @@ function App() {
       query,
       difficulty,
       exerciseType,
-      isLoading,
+      isListLoading,
       isError,
       workouts,
     },
@@ -98,17 +102,17 @@ function App() {
       async function fetchData() {
         try {
           dispatch({ type: "setError", payload: false });
-          dispatch({ type: "setLoading", payload: true });
+          dispatch({ type: "setListLoading", payload: true });
           if (isEmpty(selectedValue.current.value)) {
             selectedValue.current = {
-              query: !isEmpty(query)
-                ? "name"
+              query: !isEmpty(exerciseType)
+                ? "type"
                 : !isEmpty(muscleGroup)
                 ? "muscle"
-                : !isEmpty(exerciseType)
-                ? "type"
                 : !isEmpty(difficulty)
                 ? "difficulty"
+                : !isEmpty(query)
+                ? "name"
                 : "",
               value:
                 [query, muscleGroup, exerciseType, difficulty].find(
@@ -136,17 +140,48 @@ function App() {
           if (!res.ok) throw new Error("Bad Request. Try again...");
           const data = await res.json();
 
-          dispatch({ type: "setLoading", payload: false });
-          dispatch({ type: "setWorkouts", payload: data });
-          console.log(data);
+          dispatch({ type: "setListLoading", payload: false });
+          const filteredWorkouts = data.filter((workout) => {
+            // console.log(workout);
+            let condition = true;
+            if (!isEmpty(query)) {
+              condition =
+                condition &&
+                workout.name.toLowerCase().includes(query.toLowerCase());
+              //   console.log(workout.name.toLowerCase(), query.toLowerCase());
+              //   console.log(condition);
+              //   condition = false;
+              //   console.log(query, workout.name);
+            }
+            if (!isEmpty(muscleGroup)) {
+              //   console.log(muscleGroup, workout.muscle);
+              condition = condition && muscleGroup === workout.muscle;
+            }
+
+            if (!isEmpty(exerciseType)) {
+              //   console.log(exerciseType, workout.type);
+              condition = condition && exerciseType === workout.type;
+            }
+            if (!isEmpty(difficulty)) {
+              //   console.log(difficulty, workout.difficulty);
+              //   condition = condition && muscleGroup === workout.muscle;
+              // condition = condition && exerciseType === workout.type;
+              condition = condition && difficulty === workout.difficulty;
+            }
+            // console.log(condition);
+            return condition;
+          });
+          dispatch({ type: "setWorkouts", payload: filteredWorkouts });
+          //   dispatch({ type: "setWorkouts", payload: data });
+          //   console.log(data);
           if (!data.length) throw new Error("No results found");
           //   Render List
         } catch (err) {
           //   console.log(err);
           if (!err.message.includes("signal")) {
             //React bug causes signal abort to cause error
-            console.error(err.message);
-            dispatch({ type: "setLoading", payload: false });
+            // console.error(err.message);
+            dispatch({ type: "setListLoading", payload: false });
             dispatch({ type: "setError", payload: err.message });
           }
         }
@@ -168,12 +203,14 @@ function App() {
             stateVar={exerciseType}
             optionsArray={allExerciseTypes}
             callback={(e) => {
+              dispatch({ type: "setExerciseType", payload: e.target.value });
+
+              if (selectedValue.current.query === "muscle") return;
+
               selectedValue.current = {
                 query: "type",
                 value: e.target.value,
               };
-
-              dispatch({ type: "setExerciseType", payload: e.target.value });
             }}
             title="Choose Exercise Type"
           />
@@ -194,11 +231,18 @@ function App() {
             stateVar={difficulty}
             optionsArray={allDifficulties}
             callback={(e) => {
+              dispatch({ type: "setDifficulty", payload: e.target.value });
+
+              if (
+                selectedValue.current.query === "muscle" ||
+                selectedValue.current.query === "type"
+              )
+                return;
+
               selectedValue.current = {
                 query: "difficulty",
                 value: e.target.value,
               };
-              dispatch({ type: "setDifficulty", payload: e.target.value });
             }}
             title="Choose Difficulty"
           />
@@ -207,19 +251,25 @@ function App() {
         <Search
           stateVar={query}
           callback={(e) => {
+            dispatch({ type: "setQuery", payload: e.target.value });
+
+            if (
+              selectedValue.current.query === "muscle" ||
+              selectedValue.current.query === "type" ||
+              selectedValue.current.query === "difficulty"
+            )
+              return;
             selectedValue.current = {
               query: "name",
               value: e.target.value,
             };
-
-            dispatch({ type: "setQuery", payload: e.target.value });
           }}
         />
       </NavBar>
       <Main>
         <WorkoutList
           workouts={workouts}
-          isLoading={isLoading}
+          isListLoading={isListLoading}
           isError={isError}
           images={images}
         />
