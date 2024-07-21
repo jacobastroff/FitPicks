@@ -1,14 +1,16 @@
 import { snakeCaseToProperString } from "../constants";
 import { images } from "../constants";
-export function Workout({ lightOrDark, workoutData }) {
+import { ListWorkoutIcon } from "./ListWorkoutIcon";
+export function Workout({ lightOrDark, workoutData, dispatch }) {
   // console.log(images.__proto__);
   return (
-    <div className={`workout ${lightOrDark}`}>
-      <img
-        className="workout-list-img"
-        src={images.get(workoutData.type)}
-        alt="Workout"
-      />
+    <div
+      onClick={() => {
+        dispatch({ type: "setSelectedWorkout", payload: workoutData });
+      }}
+      className={`workout ${lightOrDark}`}
+    >
+      <ListWorkoutIcon src={images.get(workoutData.type)} />
       <div className="workout-list-text">
         <div className="workout-line">
           <h4 className="workout-heading">

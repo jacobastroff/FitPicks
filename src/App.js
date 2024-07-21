@@ -58,12 +58,16 @@ function reducer(state, action) {
         exerciseType: action.payload,
       };
     case "setSelectedWorkout":
-      return { ...state, selectedWorkout: action.payloao };
+      return { ...state, selectedWorkout: action.payload };
     default:
       console.error("Action not recognized");
   }
 }
-
+function isEmpty(val) {
+  return (
+    val === "" || val?.toLowerCase() === "Please select a value".toLowerCase()
+  );
+}
 function App() {
   //   console.log(images.get("cardio"));
 
@@ -76,18 +80,15 @@ function App() {
       isListLoading,
       isError,
       workouts,
+      selectedWorkout,
     },
     dispatch,
   ] = useReducer(reducer, initialState);
+  //   console.log(typeof dispatch);
   const selectedValue = useRef({
     query: "",
     value: "",
   });
-  function isEmpty(val) {
-    return (
-      val === "" || val?.toLowerCase() === "Please select a value".toLowerCase()
-    );
-  }
 
   useEffect(
     function () {
@@ -145,6 +146,7 @@ function App() {
             // console.log(workout);
             let condition = true;
             if (!isEmpty(query)) {
+              //   console.log(query.toLowerCase(), workout.name.toLowerCase());
               condition =
                 condition &&
                 workout.name.toLowerCase().includes(query.toLowerCase());
@@ -174,7 +176,7 @@ function App() {
           dispatch({ type: "setWorkouts", payload: filteredWorkouts });
           //   dispatch({ type: "setWorkouts", payload: data });
           //   console.log(data);
-          if (!data.length) throw new Error("No results found");
+          if (!filteredWorkouts.length) throw new Error("No results found");
           //   Render List
         } catch (err) {
           //   console.log(err);
@@ -272,8 +274,9 @@ function App() {
           isListLoading={isListLoading}
           isError={isError}
           images={images}
+          dispatch={dispatch}
         />
-        <WorkoutDetails />
+        <WorkoutDetails selectedWorkout={selectedWorkout} dispatch={dispatch} />
       </Main>
     </>
   );
