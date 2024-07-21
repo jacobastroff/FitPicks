@@ -1,6 +1,6 @@
 # FitPicks
 
-This project is available and ready to be used at fit-picks.netlify.app
+This project is available and ready to be used at [fitpicks.netlify.app](https://fitpicks.netlify.app/)
 
 ## About FitPicks
 
