@@ -5,9 +5,7 @@ import powerLiftingImage from "./images/power_lifting.jpg";
 import strengthTrainingImage from "./images/strength_training.jpg";
 import stretchingImage from "./images/stretching.jpg";
 import strongmanImage from "./images/strongman_training.jpg";
-
-const API_KEY = "RXXBjk0enqz6wI+hIibTPA==pRWGKdIWKIgkSfvA";
-
+const API_KEY = process.env.REACT_APP_API_KEY;
 const allExerciseTypes = [
   "cardio",
   "olympic_weightlifting",

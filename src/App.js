@@ -1,5 +1,5 @@
 import { useEffect, useRef, useReducer } from "react";
-import { NavBar } from "./NavBar";
+import { NavBar } from "./components/NavBar";
 import { NavLeftSide } from "./components/NavLeftSide";
 import { Options } from "./components/Options";
 import { Search } from "./components/Search";
@@ -13,7 +13,6 @@ import {
   images,
   allDifficulties,
 } from "./constants";
-
 const initialState = {
   muscleGroup: "",
   query: "",
