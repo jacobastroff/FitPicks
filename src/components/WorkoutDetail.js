@@ -56,6 +56,7 @@ export function WorkoutDetail({
                 )
               );
               console.log(savedWorkouts);
+              dispatch({ type: "setSelectedWorkout", payload: null });
               setIsSaved(false);
             }}
             className="delete-button button"
